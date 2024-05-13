@@ -94,7 +94,6 @@ const NovaCarteira = () => {
           <option value="">Selecione...</option>
           <option value="url_do_icone_1">Ícone 1</option>
           <option value="url_do_icone_2">Ícone 2</option>
-          {/* Adicione mais opções conforme necessário */}
         </select>
       </div>
       <button onClick={handleCriarCarteira}>Criar Carteira</button>
