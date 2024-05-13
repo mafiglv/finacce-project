@@ -5,23 +5,43 @@ const NovaCarteira = () => {
   const [nome, setNome] = useState('');
   const [tipo, setTipo] = useState('dinheiro');
   const [quantiaDisponivel, setQuantiaDisponivel] = useState('');
-  const [tipoPagamento, setTipoPagamento] = useState('dinheiro');
-  const [limiteCredito, setLimiteCredito] = useState('');
+  const [limiteTotal, setLimiteTotal] = useState('');
+  const [icone, setIcone] = useState('');
+
+  const handleQuantiaDisponivelChange = (event) => {
+    let value = event.target.value;
+    // Remover caracteres não numéricos e não pontos
+    value = value.replace(/[^\d.]/g, '');
+    // Limitar a 2 casas decimais
+    value = parseFloat(value).toFixed(2);
+    setQuantiaDisponivel(value);
+  };
+
+  const handleIconChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setIcone(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleCriarCarteira = () => {
     console.log({
       nome,
       tipo,
       quantiaDisponivel,
-      tipoPagamento,
-      limiteCredito
+      limiteTotal,
+      icone
     });
     
     setNome('');
     setTipo('dinheiro');
     setQuantiaDisponivel('');
-    setTipoPagamento('dinheiro');
-    setLimiteCredito('');
+    setLimiteTotal('');
+    setIcone('');
   };
 
   return (
@@ -36,37 +56,48 @@ const NovaCarteira = () => {
         />
       </div>
       <div>
-        <label>Tipo:</label>
+        <label>Tipo de Carteira:</label>
         <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
-          <option value="dinheiro">Dinheiro</option>
-          <option value="banco">Banco</option>
-        </select>
-      </div>
-      <div>
-        <label>Quantia Disponível:</label>
-        <input
-          type="number"
-          value={quantiaDisponivel}
-          onChange={(e) => setQuantiaDisponivel(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Tipo de Pagamento:</label>
-        <select value={tipoPagamento} onChange={(e) => setTipoPagamento(e.target.value)}>
-          <option value="dinheiro">Dinheiro</option>
+          <option value="dinheiro">Dinheiro em Espécie</option>
+          <option value="banco">Saldo em Banco</option>
           <option value="cartao">Cartão de Crédito</option>
         </select>
       </div>
-      {tipoPagamento === 'cartao' && (
+      <div>
+        <label>Quantia Disponível (R$):</label>
+        <input
+          type="text"
+          value={quantiaDisponivel}
+          onChange={handleQuantiaDisponivelChange}
+        />
+      </div>
+      {tipo === 'cartao' && (
         <div>
-          <label>Limite de Crédito:</label>
+          <label>Limite Total (R$):</label>
           <input
-            type="number"
-            value={limiteCredito}
-            onChange={(e) => setLimiteCredito(e.target.value)}
+            type="text"
+            value={limiteTotal}
+            onChange={(e) => setLimiteTotal(e.target.value)}
           />
         </div>
       )}
+      <div>
+        <label>Ícone do Banco:</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleIconChange(e)}
+        />
+      </div>
+      <div>
+        <label>Escolha um Ícone:</label>
+        <select value={icone} onChange={(e) => setIcone(e.target.value)}>
+          <option value="">Selecione...</option>
+          <option value="url_do_icone_1">Ícone 1</option>
+          <option value="url_do_icone_2">Ícone 2</option>
+          {/* Adicione mais opções conforme necessário */}
+        </select>
+      </div>
       <button onClick={handleCriarCarteira}>Criar Carteira</button>
     </div>
   );
