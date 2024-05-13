@@ -16,7 +16,6 @@ const NovaCarteira = () => {
     value = parseFloat(value).toFixed(2);
     setQuantiaDisponivel(value);
   };
-
   const handleIconChange = (event) => {
     const file = event.target.files[0];
     if (file) {
