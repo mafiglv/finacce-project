@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './NovaCarteira.css';
 
-const NovaCarteira = () => {
+
+function NovaCarteira() {
   const [nome, setNome] = useState('');
   const [tipo, setTipo] = useState('dinheiro');
   const [quantiaDisponivel, setQuantiaDisponivel] = useState('');
@@ -14,6 +15,7 @@ const NovaCarteira = () => {
     value = parseFloat(value).toFixed(2);
     setQuantiaDisponivel(value);
   };
+
   const handleIconChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -33,7 +35,7 @@ const NovaCarteira = () => {
       limiteTotal,
       icone
     });
-    
+
     setNome('');
     setTipo('dinheiro');
     setQuantiaDisponivel('');
@@ -49,8 +51,7 @@ const NovaCarteira = () => {
         <input
           type="text"
           value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
+          onChange={(e) => setNome(e.target.value)} />
       </div>
       <div>
         <label>Tipo de Carteira:</label>
@@ -65,8 +66,7 @@ const NovaCarteira = () => {
         <input
           type="text"
           value={quantiaDisponivel}
-          onChange={handleQuantiaDisponivelChange}
-        />
+          onChange={handleQuantiaDisponivelChange} />
       </div>
       {tipo === 'cartao' && (
         <div>
@@ -74,8 +74,7 @@ const NovaCarteira = () => {
           <input
             type="text"
             value={limiteTotal}
-            onChange={(e) => setLimiteTotal(e.target.value)}
-          />
+            onChange={(e) => setLimiteTotal(e.target.value)} />
         </div>
       )}
       <div>
@@ -83,8 +82,7 @@ const NovaCarteira = () => {
         <input
           type="file"
           accept="image/*"
-          onChange={(e) => handleIconChange(e)}
-        />
+          onChange={(e) => handleIconChange(e)} />
       </div>
       <div>
         <label>Escolha um Ícone:</label>
@@ -97,6 +95,6 @@ const NovaCarteira = () => {
       <button onClick={handleCriarCarteira}>Criar Carteira</button>
     </div>
   );
-};
+}
 
 export default NovaCarteira;
