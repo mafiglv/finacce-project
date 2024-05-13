@@ -10,9 +10,7 @@ const NovaCarteira = () => {
 
   const handleQuantiaDisponivelChange = (event) => {
     let value = event.target.value;
-    // Remover caracteres não numéricos e não pontos
     value = value.replace(/[^\d.]/g, '');
-    // Limitar a 2 casas decimais
     value = parseFloat(value).toFixed(2);
     setQuantiaDisponivel(value);
   };
